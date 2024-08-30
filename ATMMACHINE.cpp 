@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+void showMenu();
+void checkBalance(double balance);
+void deposit(double &balance);
+void withdraw(double &balance);
+void showMenu() {
+    cout << "ATM Menu:" << endl;
+    cout << "1. Check Balance" << endl;
+    cout << "2. Deposit Money" << endl;
+    cout << "3. Withdraw Money" << endl;
+    cout << "4. Exit" << endl;
+}
+
+void checkBalance(double balance) {
+    cout << "Your balance is: $" << balance << endl;
+}
+
+void deposit(double &balance) {
+    double amount;
+    cout << "Enter the amount to deposit: $";
+    cin >> amount;
+
+    if(amount > 0) {
+        balance += amount;
+        cout << "$" << amount << " has been deposited to your account." << endl;
+    } else {
+        cout << "Invalid amount. Please enter a positive value." << endl;
+    }
+}
+
+void withdraw(double &balance) {
+    double amount;
+    cout << "Enter the amount to withdraw: $";
+    cin >> amount;
+
+    if(amount > 0 && amount <= balance) {
+        balance -= amount;
+        cout << "$" << amount << " has been withdrawn from your account." << endl;
+    } else if(amount > balance) {
+        cout << "Insufficient funds. Your current balance is: $" << balance << endl;
+    } else {
+        cout << "Invalid amount. Please enter a positive value." << endl;
+    }
+}
+int main() {
+    double balance = 1000.0;  // Initial balance
+    int choice;
+
+    do {
+        showMenu();
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                checkBalance(balance);
+                break;
+            case 2:
+                deposit(balance);
+                break;
+            case 3:
+                withdraw(balance);
+                break;
+            case 4:
+                cout << "Thank you for using the ATM. Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+        cout << endl;
+    } while(choice != 4);
+
+    return 0;
